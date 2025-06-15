@@ -1,3 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">mopro1_assesment3</string>
+    <string name="app_name">Outfit Of The Day</string>
+
+    <string name="profil">Profil Pengguna</string>
+    <string name="error">Terjadi Kesalahan</string>
+    <string name="try_again">Coba Lagi</string>
+    <string name="memuat">Memuat...</string>
+    <string name="tutup">Tutup</string>
+    <string name="batal">Batal</string>
+    <string name="simpan">Simpan</string>
+    <string name="hapus">Hapus</string>
+    <string name="logout">Logout</string>
+
+    <string name="gambar">Gambar %1$s</string> <string name="loading_img">Gambar sedang dimuat</string>
+    <string name="broken_image">Gambar gagal dimuat</string>
+
+    <string name="tambah_ootd">Tambah Ootd Baru</string>
+    <string name="edit_ootd">Edit Ootd</string>
+    <string name="nama_outfit">Nama Outfit</string>
+    <string name="detail_ootd">Detail Ootd</string>
+    <string name="kembali">Kembali</string>
+
 </resources>
