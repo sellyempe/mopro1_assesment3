@@ -25,6 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- TAMBAHAN PENTING UNTUK MEMPERBAIKI CRASH -->
+        <activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Theme.AppCompat.DayNight"
+            tools:ignore="LockedOrientationActivity" />
+
     </application>
 
 </manifest>

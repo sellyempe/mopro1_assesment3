@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.selly0024.mopro1_assesment3.model.Ootd
 import com.selly0024.mopro1_assesment3.network.AuthResponse
-import com.selly0024.mopro1_assesment3.network.OotdApi
 import com.selly0024.mopro1_assesment3.network.GoogleLoginRequest
+import com.selly0024.mopro1_assesment3.network.OotdApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -58,7 +58,6 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val bearerToken = "Bearer $authToken"
-
                 val namaOutfitBody = namaOutfit.toRequestBody("text/plain".toMediaTypeOrNull())
                 val deskripsiBody = deskripsi.toRequestBody("text/plain".toMediaTypeOrNull())
                 val imagePart = bitmap.toMultipartBody()
@@ -72,16 +71,33 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun updateOotd(authToken: String, ootdToUpdate: Ootd, newNamaOutfit: String, newDeskripsi: String, newBitmap: Bitmap?) {
+    fun updateOotd(
+        authToken: String,
+        ootdToUpdate: Ootd,
+        newNamaOutfit: String,
+        newDeskripsi: String,
+        newBitmap: Bitmap?
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val bearerToken = "Bearer $authToken"
 
+                // Siapkan semua body data, termasuk ID
+                val idBody = ootdToUpdate.id.toRequestBody("text/plain".toMediaTypeOrNull())
                 val namaOutfitBody = newNamaOutfit.toRequestBody("text/plain".toMediaTypeOrNull())
                 val deskripsiBody = newDeskripsi.toRequestBody("text/plain".toMediaTypeOrNull())
                 val imagePart = newBitmap?.toMultipartBody()
 
-                OotdApi.service.updateOotd(bearerToken, ootdToUpdate.id, namaOutfitBody, deskripsiBody, imagePart)
+                // PANGGIL SERVICE DENGAN MENGIRIM ID DUA KALI
+                OotdApi.service.updateOotd(
+                    token = bearerToken,
+                    ootdId = ootdToUpdate.id, // ID untuk @Path di URL
+                    idBody = idBody,          // ID untuk @Part di body
+                    namaOutfit = namaOutfitBody,
+                    deskripsi = deskripsiBody,
+                    image = imagePart
+                )
+
                 retrieveOotds()
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Update Failure: ${e.message}")
@@ -89,7 +105,6 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
     fun deleteOotd(authToken: String, ootdId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -117,9 +132,5 @@ class MainViewModel : ViewModel() {
 
     fun clearMessage() {
         errorMessage.value = null
-    }
-
-    fun getOotdById(id: String): com.selly0024.mopro1_assesment3.model.Ootd? { // Changed function name and type
-        return data.value.find { it.id == id }
     }
 }

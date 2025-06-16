@@ -12,7 +12,6 @@ import retrofit2.http.*
 
 private const val BASE_URL = "https://api-ootd-production-e896.up.railway.app/"
 
-
 data class GoogleLoginRequest(
     val token: String
 )
@@ -40,7 +39,6 @@ interface OotdApiService {
     @GET("api/ootds")
     suspend fun getOotds(): List<Ootd>
 
-
     @Multipart
     @POST("api/ootds")
     suspend fun addOotd(
@@ -50,17 +48,16 @@ interface OotdApiService {
         @Part image: MultipartBody.Part
     ): Ootd
 
-
     @Multipart
-    @PUT("api/ootds/{id}")
+    @PUT("api/ootds/{id}") // KEMBALIKAN KE URL ASLI DENGAN {id}
     suspend fun updateOotd(
         @Header("Authorization") token: String,
-        @Path("id") ootdId: String,
+        @Path("id") ootdId: String, // 1. ID untuk URL
+        @Part("id") idBody: RequestBody, // 2. ID untuk body data
         @Part("namaOutfit") namaOutfit: RequestBody,
         @Part("deskripsi") deskripsi: RequestBody,
         @Part image: MultipartBody.Part?
     ): Ootd
-
 
     @DELETE("api/ootds/{id}")
     suspend fun deleteOotd(

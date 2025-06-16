@@ -14,6 +14,7 @@
 
     <string name="gambar">Gambar %1$s</string> <string name="loading_img">Gambar sedang dimuat</string>
     <string name="broken_image">Gambar gagal dimuat</string>
+    <string name="ootd_not_found">Outfit tidak ada</string>
 
     <string name="tambah_ootd">Tambah Ootd Baru</string>
     <string name="edit_ootd">Edit Ootd</string>
